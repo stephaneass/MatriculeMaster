@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('first_name', 60);
             $table->string('last_name', 60);
             $table->string('gender', 1);
-            $table->string('matricule_number', 20);
+            $table->string('matricule_number', 30);
             $table->date('birth_date');
             $table->date('registration_date');
             $table->string('email')->unique()->nullable();

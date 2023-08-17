@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cycles', function (Blueprint $table) {
+        Schema::create('cycle_users', function (Blueprint $table) {
             $table->id();
-            $table->string('label', 40);
-            $table->string('description');
-            $table->string('format', 40);
+            $table->unsignedBigInteger('cycle_id');
+            $table->foreign('cycle_id')->on('cycles')->references('id')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->on('users')->references('id')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
             $table->engine = 'InnoDB';
         });
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cycles');
+        Schema::dropIfExists('cycle_users');
     }
 };

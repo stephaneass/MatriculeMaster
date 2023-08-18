@@ -55,5 +55,23 @@ class User extends Authenticatable
         return $this->hasRole(['admin', 'super_admin']);
     }
 
-    
+    public function getRoleNameAttribute()
+    {
+        return $this->roles->first()->display_name ?? null;
+    }
+
+    public function getRoleAttribute()
+    {
+        return $this->roles->first()->name ?? null;
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->first_name. " " .$this->last_name;
+    }
+
+    public function getAvatarAttribute()
+    {
+        return asset('admin/images/avatars/default.png') ;
+    }
 }

@@ -9,11 +9,37 @@ class LoginComponent extends Component
 {
     public $email, $password;
 
+    protected $rules = [
+        'email' => 'required|email',
+        'password' => 'required',
+    ];
+
+    protected $messages = [
+        'required' => 'Ce champ est obligatoire',
+        'email' => 'Renseignez un email valide'
+    ];
+
     public function render()
     {
         return view('livewire.admin.login-component')
         ->extends('auth.layout');
     }
 
-    
+    public function login()
+    {
+        $this->validate();
+
+        if(Auth::attempt(array('email' => $this->email, 'password' => $this->password))){
+            $user = Auth::user();
+            if ($user->isAdmin()) {
+                session()->flash('message', "You are Login successful.");
+                return redirect()->route("admin.dashboard");
+            }
+            Auth::logout();
+            session()->flash('error', "Vous n'êtes pas autorisés.");
+            
+        }else{
+            session()->flash('error', 'Email ou mot de passe invalide.');
+        }
+    }
 }

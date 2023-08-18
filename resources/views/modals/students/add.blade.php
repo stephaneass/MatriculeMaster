@@ -54,7 +54,16 @@
                             </div>
                             <x-input field='data.last_name' libelle='Nom' placeholder="Entrez le nom"/>
                             <x-input field='data.first_name' libelle='Prénom' placeholder="Entrez le prénom"/>
-                            <x-input field='data.gender' libelle='Genre' placeholder="Entrez le genre"/>
+                            <div class="mb-3">
+                                <label class="form-label" for="data.gender">Choississez un genre</label>
+                                <select wire:model="data.gender" class="form-select mb-3" aria-label="Default select example">
+                                    <option value="">Choississez un genre</option>
+                                    <option value="M">Masculin</option>
+                                    <option value="F">Féminin</option>
+                                </select>
+                                <x-error field="data.gender" />
+                            </div>
+                            {{-- <x-input field='data.gender' libelle='Genre' placeholder="Entrez le genre"/> --}}
                             <x-input field='data.birth_date' type="date" libelle='Dare de Naissance' placeholder="Entrez la date de naissance"/>
                             <x-input field='data.registration_date' type="date" libelle="Dare d'inscription" placeholder="Entrez la date d'inscription"/>
                             <div class="mb-3">
@@ -68,7 +77,7 @@
                                 <x-error field="data.cycle_id" />
                             </div>
                             <div class="hstack gap-2 justify-content-end">
-                                <button type="button" id="hideAddCycleButton" class="btn btn-light" data-bs-dismiss="modal">Annuler</button>
+                                <button type="button" id="hideAddStudentButton" class="btn btn-light" data-bs-dismiss="modal">Annuler</button>
                                 <button wire:click="{{$buttonAction}}" type="button" class="btn btn-success" id="addNewCycle">{{$buttonTitle}}</button>
                             </div>
                         </div>
@@ -102,7 +111,7 @@
         }
 
         window.addEventListener('hideAddStudentModal', event => {
-            console.log(event.detail, 'p')
+            
             showNotification(event.detail.message, event.detail.color)
             $('#hideAddStudentButton').trigger('click');
         })

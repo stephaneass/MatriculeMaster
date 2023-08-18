@@ -88,13 +88,13 @@ class StudentComponent extends Component
 
             $this->data = [];
 
-            $this->dispatchBrowserEvent('hideAddCycleModal',[
+            $this->dispatchBrowserEvent('hideAddStudentModal',[
                 'message' => "Enregistrement effectué avec succès.",
                 'color' => 'success'
             ]);
         } catch (\Throwable $e) {
             Log::error($e->getMessage());
-            $this->dispatchBrowserEvent('hideAddCycleModal', [
+            $this->dispatchBrowserEvent('hideAddStudentModal', [
                 'message' => "Une erreur s'est produite.",
                 'color' => 'danger'
             ]);
@@ -103,37 +103,39 @@ class StudentComponent extends Component
 
     public function edit($id)
     {
-        $this->model = Cycle::find($id);
-        $this->data['label'] = $this->model->label;
-        $this->data['description'] = $this->model->description;
-        $this->data['format'] = $this->model->format;
+        $this->model = User::find($id);
+        $this->data['last_name'] = $this->model->last_name;
+        $this->data['first_name'] = $this->model->first_name;
+        $this->data['gender'] = $this->model->gender;
+        $this->data['birth_date'] = $this->model->birth_date;
+        $this->data['registration_date'] = $this->model->registration_date;
+        $this->data['cycle_id'] = $this->model->cycle_id;
     }
 
     public function update()
     {
-        $this->validate([
-            "data.label"=>"required|min:2|max:40|unique:cycles,label,".$this->model->id,
-            "data.description"=>"required|min:3|max:255",
-            "data.format"=>"required|max:40",
-        ]);
+        $this->validate();
 
         try {
             if (!blank($this->model)) {
-                $this->model->label = $this->data['label'];
-                $this->model->description = $this->data['description'];
-                $this->model->format = $this->data['format'];
+                $this->model->last_name = $this->data['last_name'];
+                $this->model->first_name = $this->data['first_name'];
+                $this->model->gender = $this->data['gender'];
+                $this->model->birth_date = $this->data['birth_date'];
+                $this->model->registration_date = $this->data['registration_date'];
+                $this->model->cycle_id = $this->data['cycle_id'];
                 $this->model->save();
             }
 
             $this->data = [];
 
-            $this->dispatchBrowserEvent('hideAddCycleModal',[
+            $this->dispatchBrowserEvent('hideAddStudentModal',[
                 'message' => "Modification effectuée avec succès.",
                 'color' => 'success'
             ]);
         } catch (\Throwable $e) {
             Log::error($e->getMessage());
-            $this->dispatchBrowserEvent('hideAddCycleModal', [
+            $this->dispatchBrowserEvent('hideAddStudentModal', [
                 'message' => "Une erreur s'est produite.",
                 'color' => 'danger'
             ]);

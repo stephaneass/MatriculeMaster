@@ -30,7 +30,7 @@
                                     <li><button class="dropdown-item bg-warning text-white" wire:click="pending()">En attente</button></li>
                                     <li><button class="dropdown-item bg-success text-white" wire:click="validated()">Validés</button></li>
                                 </ul> --}}
-                                <button class="btn btn-success addMembers-modal" data-bs-toggle="modal" data-bs-target="#addCycleModal"><i class="ri-add-fill me-1 align-bottom"></i> Ajouter </button>
+                                <button class="btn btn-primary addMembers-modal" data-bs-toggle="modal" data-bs-target="#addCycleModal"><i class="ri-add-fill me-1 align-bottom"></i> Ajouter </button>
                             </div>
                         </div>
                         <!--end col-->
@@ -44,12 +44,14 @@
                             <table class="table align-middle table-nowrap table-striped-columns mb-0">
                                 <x-table.header :columns="$this->columns" />
                                 <tbody>
-                                    
+                                    @foreach ($cycles as $cycle)
+                                        @include('livewire.admin.cycles.item')
+                                    @endforeach
                                 </tbody>
                             </table>
                             <div class="d-flex justify-content-between mt-2">
                                 <div> </div>
-                                
+                                <div class="float-right">{{ $cycles->links() }}</div>
                             </div>
                             
                         </div>
@@ -59,3 +61,10 @@
         </div><!-- end col -->
     </div><!-- end row -->
 </div>
+@push('scripts')
+    <script>
+        Livewire.on('hideAddCycleModal', function(){
+            $('#hideAddCycleButton').trigger('click');
+        })
+    </script>
+@endpush

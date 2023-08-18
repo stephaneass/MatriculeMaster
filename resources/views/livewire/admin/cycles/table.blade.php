@@ -5,6 +5,8 @@
     @include('modals/cycles/add')
 
     <div class="row">
+        <!-- Toast -->
+        
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-header">

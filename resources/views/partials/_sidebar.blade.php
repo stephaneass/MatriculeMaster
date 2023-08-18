@@ -34,6 +34,7 @@
                 <x-sidebar_menu title="Tableau de Board" :route="route('admin.dashboard')" icon="ri-honour-line" />
                 <hr>
                 <x-sidebar_menu title="Cycles" :route="route('admin.cycles')" icon="ri-recycle-line" />
+                <x-sidebar_menu title="Etudiants" :route="route('admin.students')" icon="ri-team-line" />
                 <hr>
                 <x-sidebar_menu title="Déconnexion" :route="route('logout')" icon="ri-logout-box-r-line" />
                 {{-- profil and logout --}}

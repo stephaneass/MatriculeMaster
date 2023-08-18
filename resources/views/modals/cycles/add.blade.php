@@ -31,30 +31,26 @@
 
 @push('scripts')
     <script>
-      // When the user clicks on the button, open the modal
-      function showCycleModal(type='create') {
-        
-          if (type == 'update') {
-            @this.set('modalTitle', "Modification de Cycle");
-            @this.set('buttonTitle', "Modifier");
-            @this.set('buttonAction', "update");
-          } else if (type == 'create') {
-            @this.set('modalTitle', "Ajout d'un nouveau Cycle");
-            @this.set('buttonTitle', "Ajouter");
-            @this.set('buttonAction', "save");
-          }
-          
-          $("#showAddModal").trigger('click')
-      }
+        // When the user clicks on the button, open the modal
+        function showCycleModal(type='create') {
+            
+            if (type == 'update') {
+                @this.set('modalTitle', "Modification de Cycle");
+                @this.set('buttonTitle', "Modifier");
+                @this.set('buttonAction', "update");
+            } else if (type == 'create') {
+                @this.set('modalTitle', "Ajout d'un nouveau Cycle");
+                @this.set('buttonTitle', "Ajouter");
+                @this.set('buttonAction', "save");
+            }
+            
+            $("#showAddModal").trigger('click')
+        }
 
-    window.addEventListener('hideAddCycleModal', event => {
-        console.log(event.detail, 'p')
-        showNotification(event.detail.message, event.detail.color)
-        $('#hideAddCycleButton').trigger('click');
-    })
-    
-    
-
-      
+        window.addEventListener('hideAddCycleModal', event => {
+            console.log(event.detail, 'p')
+            showNotification(event.detail.messageresources/views/modals/cycles/add.blade.php, event.detail.color)
+            $('#hideAddCycleButton').trigger('click');
+        })
     </script>
 @endpush

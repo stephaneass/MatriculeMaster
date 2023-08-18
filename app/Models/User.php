@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Models\Role;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -73,5 +74,28 @@ class User extends Authenticatable
     public function getAvatarAttribute()
     {
         return asset('admin/images/avatars/default.png') ;
+    }
+
+    function scopeList($query, $search='')
+    {
+        return $query->orderBy('matricule_number')
+                    ->when(!blank($search), function($q)use($search){
+                        $q->where(function($q) use($search){
+                            $q->where('label', 'LIKE', "%$search%")
+                                ->orWhere('description', 'LIKE', "%$search%")
+                                ->orWhere('format', 'LIKE', "%$search%");
+                        });
+                    });
+    }
+
+    public static function createNew($data, $role) : self 
+    {
+        $user = self::create($data);
+
+        $role = Role::whereName($role)->first();
+        if (!blank($role))
+            $user->assignRole($role);
+            
+        return $user;
     }
 }

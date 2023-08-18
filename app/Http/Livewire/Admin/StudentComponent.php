@@ -3,16 +3,17 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Cycle;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class CycleComponent extends Component
+class StudentComponent extends Component
 {
     use WithPagination;
     
-    public $title = "Liste de tous les cycles";
+    public $title = "Liste de tous les étudiants";
     public $data = [];
     public $model = null;
     public $search = '';
@@ -22,34 +23,44 @@ class CycleComponent extends Component
     public $buttonAction = 'save';
 
     public $admin_id;
+    public $cycles = [];
 
     protected $paginationTheme = 'bootstrap';
 
     protected $rules = [
-        "data.label"=>"required|min:2|max:40|unique:cycles,label",
-        "data.description"=>"required|min:3|max:255",
-        "data.format"=>"required|max:40",
+        "data.last_name"=>"required|min:2|max:60",
+        "data.first_name"=>"required|min:2|max:60",
+        "data.gender"=>"required|min:1|max:1",
+        "data.birth_date"=>"required|date|before:today",
+        "data.registration_date"=>"required|date|before:tomorrow",
+        "data.cycle_id"=>"required|integer|exists:cycles,id",
     ];
 
     protected $messages = [
-        "unique"=>"Ce libellé n'est plus disponible.",
+        "exists"=>"Choisissez un cycle valide.",
         "required"=>"Ce champ est obligatoire.",
-        "data.label.min"=>"Au moin 2 caractères.",
-        "data.description.min"=>"Au moin 3 caractères.",
-        "data.label.max"=>"Au plus 40 caractères.",
-        "data.description.max"=>"Au plus 255 caractères.",
-        "data.format.max"=>"Au plus 40 caractères.",
+        "date"=>"Ce champ doit être une date.",
+        "data.last_name.min"=>"Au moin 2 caractères.",
+        "data.first_name.min"=>"Au moin 2 caractères.",
+        "data.gender.min"=>"Au moin 1 caractère.",
+        "data.last_name.max"=>"Au plus 60 caractères.",
+        "data.first_name.max"=>"Au plus 60 caractères.",
+        "data.gender.max"=>"Au plus 1 caractère.",
+        "data.birth_date.before"=>"La date de naissance doit être inférieure à la date d'aujourd'hui.",
+        "data.registration_date.before"=>"La date d'enregistration doit être inférieure ou égale à la date d'aujourd'hui.",
     ];
 
     public function mount()
     {
         $this->admin_id = Auth::id();
+        $this->cycles = (Cycle::orderBy('label')->pluck('label', 'id')->toArray());
     }
 
     public function render()
     {
-        return view('livewire.admin.cycles.table',[
-                'cycles' => Cycle::list($this->search)->paginate(10)
+        return view('livewire.admin.students.table',[
+                
+                'students' => User::role('student')->list($this->search)->paginate(10)
             ])
             ->extends('layout');
     }
@@ -57,10 +68,12 @@ class CycleComponent extends Component
     function getColumnsProperty()
     {
         return [
-            "N°",
-            "Libellé",
-            "Description",
-            "Format",
+            "N° Matricule",
+            "Nom",
+            "Prénoms",
+            "Genre",
+            "Date de Naissance",
+            "Date d'enregistrement",
             "Action",
         ];
     }
@@ -71,7 +84,7 @@ class CycleComponent extends Component
         try {
             $this->data = array_merge($this->data, ['admin_id' => $this->admin_id]);
 
-            Cycle::create($this->data);
+            User::createNew($this->data, 'student');
 
             $this->data = [];
 

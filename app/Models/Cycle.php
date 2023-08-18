@@ -13,7 +13,7 @@ class Cycle extends Model
 
     function scopeList($query, $search='')
     {
-        return $query->orderByDesc('label')
+        return $query->orderBy('label')
                     ->when(!blank($search), function($q)use($search){
                         $q->where(function($q) use($search){
                             $q->where('label', 'LIKE', "%$search%")

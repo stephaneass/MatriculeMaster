@@ -2,7 +2,8 @@
     <!-- start page title -->
     <x-breadcrumb title="La liste des Cycles"/>
     <!-- end page title -->
-    
+    @include('modals/cycles/add')
+
     <div class="row">
         <div class="col-xl-12">
             <div class="card">
@@ -13,7 +14,7 @@
                     <div class="row ">
                         <div class="col-sm-4">
                             <div class="search-box">
-                                <input wire:model='search' type="text" class="form-control" id="search" placeholder="Rechercher en fonction du nom...">
+                                <input wire:model='search' type="text" class="form-control" id="search" placeholder="Rechercher en fonction du libel...">
                                 <i class="ri-search-line search-icon"></i>
                             </div>
                         </div>
@@ -29,7 +30,7 @@
                                     <li><button class="dropdown-item bg-warning text-white" wire:click="pending()">En attente</button></li>
                                     <li><button class="dropdown-item bg-success text-white" wire:click="validated()">Validés</button></li>
                                 </ul> --}}
-                                <button class="btn btn-success addMembers-modal" data-bs-toggle="modal" data-bs-target="#addmemberModal"><i class="ri-add-fill me-1 align-bottom"></i> Ajouter </button>
+                                <button class="btn btn-success addMembers-modal" data-bs-toggle="modal" data-bs-target="#addCycleModal"><i class="ri-add-fill me-1 align-bottom"></i> Ajouter </button>
                             </div>
                         </div>
                         <!--end col-->

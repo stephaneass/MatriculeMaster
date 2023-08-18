@@ -7,6 +7,7 @@ use Livewire\Component;
 class CycleComponent extends Component
 {
     public $title = "Liste de tous les cycles";
+    public $data = [];
 
     public function render()
     {

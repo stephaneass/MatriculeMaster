@@ -46,8 +46,8 @@
                             <table class="table align-middle table-nowrap table-striped-columns mb-0">
                                 <x-table.header :columns="$this->columns" />
                                 <tbody>
-                                    @foreach ($students as $cycle)
-                                        @include('livewire.admin.cycles.item')
+                                    @foreach ($students as $student)
+                                        @include('livewire.admin.students.item')
                                     @endforeach
                                 </tbody>
                             </table>

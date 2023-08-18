@@ -48,8 +48,8 @@
         }
 
         window.addEventListener('hideAddCycleModal', event => {
-            console.log(event.detail, 'p')
-            showNotification(event.detail.messageresources/views/modals/cycles/add.blade.php, event.detail.color)
+            
+            showNotification(event.detail.message, event.detail.color)
             $('#hideAddCycleButton').trigger('click');
         })
     </script>

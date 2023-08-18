@@ -71,6 +71,12 @@ class CycleComponent extends Component
         try {
             $this->data = array_merge($this->data, ['admin_id' => $this->admin_id]);
 
+            $result = Cycle::checkIfFormatIsValide($this->data['format'], $this->data['label']);
+            if (!$result) {
+                $this->addError('data.format', "Veuillez renseigner un format valide.");
+                return;
+            }
+
             Cycle::create($this->data);
 
             $this->data = [];
@@ -106,6 +112,11 @@ class CycleComponent extends Component
 
         try {
             if (!blank($this->model)) {
+                $result = Cycle::checkIfFormatIsValide($this->data['format'], $this->data['label']);
+                if (!$result) {
+                    $this->addError('data.format', "Veuillez renseigner un format valide.");
+                    return;
+                }
                 $this->model->label = $this->data['label'];
                 $this->model->description = $this->data['description'];
                 $this->model->format = $this->data['format'];

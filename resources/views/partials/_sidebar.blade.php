@@ -31,7 +31,10 @@
             </div>
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span data-key="t-menu">Menu</span></li>
+                <x-sidebar_menu title="Tableau de Board" :route="route('admin.dashboard')" icon="ri-honour-line" />
+                <hr>
                 
+                <x-sidebar_menu title="Déconnexion" :route="route('logout')" icon="ri-logout-box-r-line" />
                 {{-- profil and logout --}}
             </ul>
         </div>

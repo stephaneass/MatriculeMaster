@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Livewire\Admin\DashboardComponent;
 use App\Http\Livewire\Admin\LoginComponent;
 use Illuminate\Support\Facades\Route;
@@ -22,5 +23,6 @@ Route::get('/', function () {
 Route::get('/login', LoginComponent::class)->name('login');
 
 Route::middleware('auth')->group(function(){
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/tableau-de-board', DashboardComponent::class)->name('admin.dashboard');
 });

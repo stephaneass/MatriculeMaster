@@ -47,13 +47,13 @@
           $("#showAddModal").trigger('click')
       }
 
-      Livewire.on('hideAddCycleModal', function(){
-            $('#hideAddCycleButton').trigger('click');
-        })
-      
-      function hideEvenementModal() {
-          $("#cycleModal").hide()
-      }
+    window.addEventListener('hideAddCycleModal', event => {
+        console.log(event.detail, 'p')
+        showNotification(event.detail.message, event.detail.color)
+        $('#hideAddCycleButton').trigger('click');
+    })
+    
+    
 
       
     </script>

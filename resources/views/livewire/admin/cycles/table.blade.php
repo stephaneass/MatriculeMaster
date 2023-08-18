@@ -3,9 +3,9 @@
     <x-breadcrumb title="La liste des Cycles"/>
     <!-- end page title -->
     @include('modals/cycles/add')
+    @include('components.notification')
 
     <div class="row">
-        <!-- Toast -->
         
         <div class="col-xl-12">
             <div class="card">

@@ -26,7 +26,7 @@ class CycleComponent extends Component
     protected $paginationTheme = 'bootstrap';
 
     protected $rules = [
-        "data.label"=>"required|min:2|max:40|unique:clycles,label",
+        "data.label"=>"required|min:2|max:40|unique:cycles,label",
         "data.description"=>"required|min:3|max:255",
         "data.format"=>"required|max:40",
     ];
@@ -68,15 +68,25 @@ class CycleComponent extends Component
     public function save()
     {
         $this->validate();
+        try {
+            $this->data = array_merge($this->data, ['admin_id' => $this->admin_id]);
 
-        $this->data = array_merge($this->data, ['admin_id' => $this->admin_id]);
+            Cycle::create($this->data);
 
-        Cycle::create($this->data);
+            session()->flash('success', "Le cycle vient d'être ajouté avec succès.");
+            $this->data = [];
 
-        session()->flash('success', "Le cycle vient d'être ajouté avec succès.");
-        $this->data = [];
-
-        $this->emit('hideAddCycleModal');
+            $this->dispatchBrowserEvent('hideAddCycleModal',[
+                'message' => "Enregistrement effectué avec succès.",
+                'color' => 'success'
+            ]);
+        } catch (\Throwable $e) {
+            Log::error($e->getMessage());
+            $this->dispatchBrowserEvent('hideAddCycleModal', [
+                'message' => "Une erreur s'est produite.",
+                'color' => 'danger'
+            ]);
+        }
     }
 
     public function edit($id)
@@ -102,13 +112,20 @@ class CycleComponent extends Component
                 $this->model->format = $this->data['format'];
                 $this->model->save();
             }
-            session()->flash('success', "Le Cycle vient d'être modifié avec succès.");
+
             $this->data = [];
 
-            $this->emit('hideAddCycleModal');
-        } catch (\Throwable $th) {
-            Log::error($th->getMessage());
+            $this->dispatchBrowserEvent('hideAddCycleModal',[
+                'message' => "Modification effectuée avec succès.",
+                'color' => 'success'
+            ]);
+        } catch (\Throwable $e) {
+            Log::error($e->getMessage());
             session()->flash('error', "Une erreur s'est produite.");
+            $this->dispatchBrowserEvent('hideAddCycleModal', [
+                'message' => "Une erreur s'est produite.",
+                'color' => 'danger'
+            ]);
         }
     }
 }

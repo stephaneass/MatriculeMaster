@@ -30,7 +30,7 @@
                                     <li><button class="dropdown-item bg-warning text-white" wire:click="pending()">En attente</button></li>
                                     <li><button class="dropdown-item bg-success text-white" wire:click="validated()">Validés</button></li>
                                 </ul> --}}
-                                <button class="btn btn-primary addMembers-modal" data-bs-toggle="modal" data-bs-target="#addCycleModal"><i class="ri-add-fill me-1 align-bottom"></i> Ajouter </button>
+                                <button onclick="showCycleModal('create')" class="btn btn-primary addMembers-modal"><i class="ri-add-fill me-1 align-bottom"></i> Ajouter </button>
                             </div>
                         </div>
                         <!--end col-->
@@ -63,8 +63,6 @@
 </div>
 @push('scripts')
     <script>
-        Livewire.on('hideAddCycleModal', function(){
-            $('#hideAddCycleButton').trigger('click');
-        })
+        
     </script>
 @endpush

@@ -32,7 +32,7 @@ class LoginComponent extends Component
         if(Auth::attempt(array('email' => $this->email, 'password' => $this->password))){
             $user = Auth::user();
             if ($user->isAdmin()) {
-                session()->flash('message', "You are Login successful.");
+                session()->flash('message', "Vous êtes connecté avec succès!.");
                 return redirect()->route("admin.dashboard");
             }
             Auth::logout();

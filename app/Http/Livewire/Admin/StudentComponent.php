@@ -84,7 +84,7 @@ class StudentComponent extends Component
         try {
             $this->data = array_merge($this->data, ['admin_id' => $this->admin_id]);
 
-            User::createNew($this->data, 'student');
+            $user = User::createNew($this->data, 'student');
 
             $this->data = [];
 

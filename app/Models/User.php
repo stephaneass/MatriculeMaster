@@ -98,4 +98,18 @@ class User extends Authenticatable
             
         return $user;
     }
+
+    public function generateMatricule($cycle_id) : string
+    {
+        $cycle = Cycle::findOrFail($cycle_id);
+
+        $matricule = $cycle->format;
+        $matricule = str_replace('{YEAR}', date('Y'), $matricule);
+        $matricule = str_replace('{MONTH}', date('m'), $matricule);
+        $matricule = str_replace('{DAY}', date('d'), $matricule);
+        $matricule = str_replace('{TC}', self::role('student')->count() + 1, $matricule);
+        $matricule = str_replace('{CC}', self::where('cycle_id', $cycle_id)->count() + 1, $matricule);
+
+        return $matricule;
+    }
 }

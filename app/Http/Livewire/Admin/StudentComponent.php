@@ -119,6 +119,8 @@ class StudentComponent extends Component
 
         try {
             if (!blank($this->model)) {
+                $old_cycle_id = $this->model->cycle_id;
+
                 $this->model->last_name = $this->data['last_name'];
                 $this->model->first_name = $this->data['first_name'];
                 $this->model->gender = $this->data['gender'];
@@ -126,6 +128,9 @@ class StudentComponent extends Component
                 $this->model->registration_date = $this->data['registration_date'];
                 $this->model->cycle_id = $this->data['cycle_id'];
                 $this->model->save();
+
+                if ($old_cycle_id != $this->data['cycle_id'])
+                    $this->model->cycles()->attach($this->data['cycle_id']);
             }
 
             $this->data = [];

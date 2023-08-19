@@ -54,7 +54,7 @@ class User extends Authenticatable
 
     function cycles()
     {
-        return $this->belongsToMany(Cycle::class, 'cycle_user');
+        return $this->belongsToMany(Cycle::class, 'cycle_user')->withTimestamps();
     }
     
     function cycle()

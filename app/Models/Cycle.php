@@ -24,6 +24,11 @@ class Cycle extends Model
     {
         return $this->belongsToMany(User::class, 'user_user');
     }
+    
+    function students()
+    {
+        return $this->hasMany(User::class);
+    }
 
     function scopeList($query, $search='')
     {

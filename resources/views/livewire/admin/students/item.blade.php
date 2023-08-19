@@ -2,7 +2,8 @@
     <td>{{$student->matricule_number}}</td>
     <td>{{$student->last_name}}</td>
     <td>{{$student->first_name}}</td>
-    <td>{{$student->gender}}</td>
+    <td>{{$student->sex}}</td>
+    <td>{{$student->cycle->label}}</td>
     <td>{{$student->birth_date}}</td>
     <td>{{$student->registration_date}}</td>
     <td>

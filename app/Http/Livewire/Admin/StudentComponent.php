@@ -72,6 +72,7 @@ class StudentComponent extends Component
             "Nom",
             "Prénoms",
             "Genre",
+            "Cycle",
             "Date de Naissance",
             "Date d'enregistrement",
             "Action",

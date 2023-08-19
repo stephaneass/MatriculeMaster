@@ -56,6 +56,11 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Cycle::class, 'cycle_user');
     }
+    
+    function cycle()
+    {
+        return $this->belongsTo(Cycle::class);
+    }
 
     public function isAdmin()
     {
@@ -82,14 +87,31 @@ class User extends Authenticatable
         return asset('admin/images/avatars/default.png') ;
     }
 
+    public function getSexAttribute()
+    {
+        switch ($this->gender) {
+            case 'F':
+                return 'Féminin';
+                break;
+            case 'M':
+                return 'Masculin';
+                break;
+            
+            default:
+                return "Néan";
+                break;
+        }
+    }
+
     function scopeList($query, $search='')
     {
-        return $query->orderBy('matricule_number')
+        return $query->with('cycle')->orderBy('first_name')->orderBy('last_name')
                     ->when(!blank($search), function($q)use($search){
                         $q->where(function($q) use($search){
-                            $q->where('label', 'LIKE', "%$search%")
-                                ->orWhere('description', 'LIKE', "%$search%")
-                                ->orWhere('format', 'LIKE', "%$search%");
+                            $q->where('first_name', 'LIKE', "%$search%")
+                                ->orWhere('last_name', 'LIKE', "%$search%")
+                                ->orWhere('matricule_number', 'LIKE', "%$search%")
+                                ->orWhere('gender', 'LIKE', "%$search%");
                         });
                     });
     }
@@ -99,7 +121,7 @@ class User extends Authenticatable
         $matricule = self::generateMatricule($data);
 
         $data = array_merge($data, ['matricule_number' => $matricule]);
-        
+
         $user = self::create($data);
 
         $role = Role::whereName($role)->first();

@@ -36,6 +36,7 @@
                 <x-sidebar_menu title="Cycles" :route="route('admin.cycles')" icon="ri-recycle-line" />
                 <x-sidebar_menu title="Etudiants" :route="route('admin.students')" icon="ri-team-line" />
                 <hr>
+                <x-sidebar_menu title="Profil" :route="route('admin.profil')" icon="ri-account-circle-line" />
                 <x-sidebar_menu title="Déconnexion" :route="route('logout')" icon="ri-logout-box-r-line" />
                 {{-- profil and logout --}}
             </ul>

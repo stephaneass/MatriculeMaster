@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cycle extends Model
 {
+    use HasFactory;
+
     public static $YEAR = '{YEAR}';
     public static $MONTH = '{MONTH}';
     public static $DAY = '{DAY}';
@@ -16,9 +18,12 @@ class Cycle extends Model
     public static $FN = '{FN}';
     public static $LN = '{LN}';
 
-    use HasFactory;
-
     protected $guarded = [];
+
+    function users()
+    {
+        return $this->belongsToMany(User::class, 'user_user');
+    }
 
     function scopeList($query, $search='')
     {

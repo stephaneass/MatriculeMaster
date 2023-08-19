@@ -81,10 +81,10 @@ class StudentComponent extends Component
     public function save()
     {
         $this->validate();
-        try {
+        //try {
             $this->data = array_merge($this->data, ['admin_id' => $this->admin_id]);
 
-            $user = User::createNew($this->data, 'student');
+            $user = User::createStudent($this->data, 'student');
 
             $this->data = [];
 
@@ -92,13 +92,13 @@ class StudentComponent extends Component
                 'message' => "Enregistrement effectué avec succès.",
                 'color' => 'success'
             ]);
-        } catch (\Throwable $e) {
+        /* } catch (\Throwable $e) {
             Log::error($e->getMessage());
             $this->dispatchBrowserEvent('hideAddStudentModal', [
                 'message' => "Une erreur s'est produite.",
                 'color' => 'danger'
             ]);
-        }
+        } */
     }
 
     public function edit($id)

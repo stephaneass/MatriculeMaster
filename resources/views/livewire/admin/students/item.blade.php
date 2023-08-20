@@ -4,8 +4,8 @@
     <td>{{$student->first_name}}</td>
     <td>{{$student->sex}}</td>
     <td>{{$student->cycle->label}}</td>
-    <td>{{$student->birth_date}}</td>
-    <td>{{$student->registration_date}}</td>
+    <td>{{formatDate($student->birth_date)}}</td>
+    <td>{{formatDate($student->registration_date)}}</td>
     @if (!isset($export))
         <td>
             <!-- Buttons Group -->

@@ -162,8 +162,9 @@ class StudentComponent extends Component
         $search = $request->search;
         $cycle_id = $request->cycle_id;
         $gender = $request->gender;
+        $file_name = $this->formatFileName($gender, $cycle_id);
         return (new DownloadPDF($search, $cycle_id, $gender))
-                ->downloadPdf();
+                ->downloadPdf($file_name);
     }
     
     public function downloadExcel(Request $request)
@@ -171,6 +172,22 @@ class StudentComponent extends Component
         $search = $request->search;
         $cycle_id = $request->cycle_id;
         $gender = $request->gender;
-        return Excel::download(new DownloadExcel($search, $cycle_id, $gender), "bb.xlsx");
+        $file_name = $this->formatFileName($gender, $cycle_id);
+        return Excel::download(new DownloadExcel($search, $cycle_id, $gender), "$file_name.xlsx");
+    }
+
+    public function formatFileName($gender, $cycle_id)
+    {
+        $file_name = "Liste de tous les Etudiants";
+
+        if (!blank($gender)){
+            $gender_label = ($gender == "F") ? " Feminins " : " Masculins ";
+            $file_name .= $gender_label;
+        }
+        if (!blank($cycle_id)){
+            $cycle = Cycle::findOrFail($cycle_id)->label;
+            $file_name .= " du cycle $cycle";
+        }
+        return $file_name;
     }
 }

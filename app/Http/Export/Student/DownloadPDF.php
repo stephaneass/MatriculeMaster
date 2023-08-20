@@ -9,12 +9,11 @@ class DownloadPDF
 {
     use CommunData;
 
-    public function downloadPDF() {
+    public function downloadPDF($title) {
         $pdf = PDF::loadView('exports.students.pdf', ($this->dataToView()))
-                    ->setOption('header-html', view('exports.header'))
                     ->setOption('footer-html', view('exports.footer'));
         
-        return $pdf->download($this->title.".pdf");
+        return $pdf->download($title.".pdf");
     }
 
 

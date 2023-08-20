@@ -32,12 +32,14 @@ class DashboardComponent extends Component
             [
                 'title' => 'Féminin',
                 'number' => User::role('student')->whereGender('F')->count(),
-                'color' => 'primary'
+                'color' => 'primary',
+                'route' => route("admin.students", ['gender' => "F"])
             ],
             [
                 'title' => 'Masculin',
                 'number' => User::role('student')->whereGender('M')->count(),
-                'color' => 'info'
+                'color' => 'info',
+                'route' => route("admin.students", ['gender' => "M"])
             ],
             
         ];
@@ -54,7 +56,8 @@ class DashboardComponent extends Component
             $data[] = [
                 'title' => $cycle->label,
                 'number' => $cycle->students_count,
-                'color' => $this->colors[$currentIndex]
+                'color' => $this->colors[$currentIndex],
+                'route' => route("admin.students", ['cycle_id' => $cycle->id])
             ];
             $currentIndex++;
         }

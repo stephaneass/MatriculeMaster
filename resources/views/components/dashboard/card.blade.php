@@ -1,4 +1,4 @@
-@props(['title', 'number', 'color'=>'primary', 'icon'=>'users'])
+@props(['title', 'number', 'color'=>'primary', 'icon'=>'users', 'route' =>"#"])
 <div class="col-xl-3 col-md-6">
     <!-- card -->
     <div class="card ribbon-box card-animate">
@@ -13,7 +13,7 @@
             <div class="d-flex align-items-end justify-content-between mt-5">
                 <div>
                     <h4 class="fs-22 fw-semibold ff-secondary mb-2"><span class="counter-value" data-target="{{$number}}">0</span> </h4>
-                    <a href="#" class="text-decoration-underline">Voir la liste</a>
+                    <a href="{{$route}}" class="text-decoration-underline">Voir la liste</a>
                 </div>
                 <div class="avatar-sm flex-shrink-0">
                     <span class="avatar-title bg-soft-{{$color}} rounded fs-2">

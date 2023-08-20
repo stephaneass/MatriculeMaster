@@ -22,14 +22,14 @@
                         </div>
                         <div class="col-sm-3">
                             <select wire:model="gender" class="form-select" aria-label="Default select example">
-                                <option value="">Choississez un genre</option>
+                                <option value="">Tous les genres</option>
                                 <option value="M">Masculin</option>
                                 <option value="F">Féminin</option>
                             </select>
                         </div>
                         <div class="col-sm-3">
                             <select wire:model="cycle_id" class="form-select mb-3" aria-label="Default select example">
-                                <option value="">Choississez un cycle</option>
+                                <option value="">Tous les cycles</option>
                                 @foreach ($cycles as $key => $cycle)
                                     <option value="{{$key}}">{{$cycle}}</option>
                                 @endforeach

@@ -47,7 +47,7 @@ class DownloadPDF
     }
 
     public function downloadPDF($filename) {
-        $pdf = PDF::loadView('exports.students.pdf', $this->dataToView());
+        $pdf = PDF::loadView('exports.students.pdf', dd($this->dataToView()));
         
         return $pdf->download($filename);
     }

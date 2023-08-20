@@ -31,4 +31,6 @@ Route::middleware('auth')->group(function(){
     Route::get('/cycles', CycleComponent::class)->name('admin.cycles');
     Route::get('/etudiants', StudentComponent::class)->name('admin.students');
     Route::get('/profil', ProfilComponent::class)->name('admin.profil');
+
+    Route::get('/etudiants/pdf', [StudentComponent::class, 'downloadPdf'])->name('admin.students.pdf');
 });

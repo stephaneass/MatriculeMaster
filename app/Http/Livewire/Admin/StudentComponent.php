@@ -152,4 +152,10 @@ class StudentComponent extends Component
             ]);
         }
     }
+
+    public function downloadPdf()
+    {
+        return (new DownloadPDF($this->search, $this->cycle_id, $this->gender))
+                ->downloadPdf("Liste de tous les etudiants");
+    }
 }

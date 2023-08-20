@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Http\Export\Student\DownloadExcel;
 use App\Http\Export\Student\DownloadPDF;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Cycle;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -162,5 +164,13 @@ class StudentComponent extends Component
         $gender = $request->gender;
         return (new DownloadPDF($search, $cycle_id, $gender))
                 ->downloadPdf();
+    }
+    
+    public function downloadExcel(Request $request)
+    {
+        $search = $request->search;
+        $cycle_id = $request->cycle_id;
+        $gender = $request->gender;
+        return Excel::download(new DownloadExcel($search, $cycle_id, $gender), "bb.xlsx");
     }
 }

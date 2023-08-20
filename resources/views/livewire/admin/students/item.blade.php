@@ -6,10 +6,12 @@
     <td>{{$student->cycle->label}}</td>
     <td>{{$student->birth_date}}</td>
     <td>{{$student->registration_date}}</td>
-    <td>
-        <!-- Buttons Group -->
-        <button wire:click="edit({{$student->id}})" 
-            onclick="showStudentModal('update')"
-            type="button" class="btn btn-primary btn-icon waves-effect waves-light"><i class="ri-edit-line"></i></button>            
-    </td>
+    @if (!isset($export))
+        <td>
+            <!-- Buttons Group -->
+            <button wire:click="edit({{$student->id}})" 
+                onclick="showStudentModal('update')"
+                type="button" class="btn btn-primary btn-icon waves-effect waves-light"><i class="ri-edit-line"></i></button>            
+        </td>
+    @endif
 </tr>

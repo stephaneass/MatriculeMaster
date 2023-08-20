@@ -65,8 +65,8 @@ class StudentComponent extends Component
 
     public function render()
     {
-        return view('livewire.admin.students.table',[
-                
+        return view('livewire.admin.students.index',[
+                'columns' => $this->columns,
                 'students' => User::role('student')->list($this->search, $this->cycle_id, $this->gender)->paginate(10)
             ])
             ->extends('layout', ['title' => 'Etudiants']);
@@ -161,6 +161,6 @@ class StudentComponent extends Component
         $cycle_id = $request->cycle_id;
         $gender = $request->gender;
         return (new DownloadPDF($search, $cycle_id, $gender))
-                ->downloadPdf("Liste de tous les etudiants");
+                ->downloadPdf();
     }
 }

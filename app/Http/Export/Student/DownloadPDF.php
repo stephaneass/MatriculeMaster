@@ -7,7 +7,7 @@ use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 
 class DownloadPDF
 {
-    public $title = 'Liste de tous les etudiants';
+    public $title = 'Liste de tous les Etudiants';
     
     public function __construct(public $search, public $cycle_id = null, public $gender = null)
     {
@@ -42,14 +42,18 @@ class DownloadPDF
     public function dataToView()
     {
         return [
-            "datas" => User::role('student')->list($this->search, $this->cycle_id, $this->gender)->get(),
+            "students" => User::role('student')->list($this->search, $this->cycle_id, $this->gender)->get(),
+            'columns' => $this->columns(),
+            'title' => $this->title,
+            'export'=>true,
         ];
     }
 
-    public function downloadPDF($filename) {
-        $pdf = PDF::loadView('exports.students.pdf', dd($this->dataToView()));
+    public function downloadPDF() {
+        $pdf = PDF::loadView('exports.students.pdf', ($this->dataToView()))
+                    ->setOption('footer-html', view('exports.footer'));
         
-        return $pdf->download($filename);
+        return $pdf->download($this->title.".pdf");
     }
 
 

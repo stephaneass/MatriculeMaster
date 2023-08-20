@@ -6,7 +6,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Dashboard | Matricule Master</title>
+    <title>{{$title}} | Matricule Master</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Matricule Master University School Education" name="description" />
     <meta content="Themesbrand" name="author" />

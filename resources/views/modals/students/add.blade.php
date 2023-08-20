@@ -74,7 +74,6 @@
                                         <option value="{{$key}}">{{$cycle}}</option>
                                     @endforeach
                                 </select>
-                                <x-error field="data.cycle_id" />
                             </div>
                             <div class="hstack gap-2 justify-content-end">
                                 <button type="button" id="hideAddStudentButton" class="btn btn-light" data-bs-dismiss="modal">Annuler</button>

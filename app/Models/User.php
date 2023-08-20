@@ -103,7 +103,7 @@ class User extends Authenticatable
         }
     }
 
-    function scopeList($query, $search='')
+    function scopeList($query, $search, $cycle_id, $gender)
     {
         return $query->with('cycle')->orderBy('first_name')->orderBy('last_name')
                     ->when(!blank($search), function($q)use($search){
@@ -113,6 +113,12 @@ class User extends Authenticatable
                                 ->orWhere('matricule_number', 'LIKE', "%$search%")
                                 ->orWhere('gender', 'LIKE', "%$search%");
                         });
+                    })
+                    ->when(!blank($cycle_id), function($q)use($cycle_id){
+                        $q->where('cycle_id', "$cycle_id");
+                    })
+                    ->when(!blank($gender), function($q)use($gender){
+                        $q->where('gender', "$gender");
                     });
     }
 

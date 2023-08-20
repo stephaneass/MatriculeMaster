@@ -22,13 +22,13 @@
                 <!--end row-->
 
                 <div class="row">
-                    <h4 class="fs-16 mb-1">Etudiants</h4>
+                    <h4 class="fs-16 mb-1">Etudiants par Genre</h4>
                     @foreach ($users_dash as $item)
                         <x-dashboard.card :title="$item['title']" :number="$item['number']" :color="$item['color']" /><!-- end col -->
                     @endforeach
                 </div>
                 <div class="row">
-                    <h4 class="fs-16 mb-1">Cycles</h4>
+                    <h4 class="fs-16 mb-1">Etudiants par Cycles</h4>
                     @foreach ($cycles_dash as $item)
                         <x-dashboard.card :title="$item['title']" :number="$item['number']" :color="$item['color']" icon='ri-space-ship-line' /><!-- end col -->
                     @endforeach

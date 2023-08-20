@@ -51,7 +51,7 @@ class CycleComponent extends Component
         return view('livewire.admin.cycles.table',[
                 'cycles' => Cycle::list($this->search)->paginate(10)
             ])
-            ->extends('layout');
+            ->extends('layout', ['title' => 'Cycles']);
     }
 
     function getColumnsProperty()

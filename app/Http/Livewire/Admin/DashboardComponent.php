@@ -23,7 +23,7 @@ class DashboardComponent extends Component
             'cycles_dash' => $this->getCycleDash(),
             //'operations_dash' => $this->getOperationDash(),
         ])
-            ->extends('layout');
+            ->extends('layout', ['title' => 'Dashboard']);
     }
 
     function getUserDash()

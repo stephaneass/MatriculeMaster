@@ -27,6 +27,11 @@ class StudentComponent extends Component
 
     protected $paginationTheme = 'bootstrap';
 
+    public $cycle_id;
+    public $gender;
+ 
+    protected $queryString = ['cycle_id', 'gender'];
+
     protected $rules = [
         "data.last_name"=>"required|min:2|max:60",
         "data.first_name"=>"required|min:2|max:60",
@@ -53,16 +58,16 @@ class StudentComponent extends Component
     public function mount()
     {
         $this->admin_id = Auth::id();
-        $this->cycles = (Cycle::orderBy('label')->pluck('label', 'id')->toArray());
+        $this->cycles = Cycle::orderBy('label')->pluck('label', 'id')->toArray();
     }
 
     public function render()
     {
         return view('livewire.admin.students.table',[
                 
-                'students' => User::role('student')->list($this->search)->paginate(10)
+                'students' => User::role('student')->list($this->search, $this->cycle_id, $this->gender)->paginate(10)
             ])
-            ->extends('layout');
+            ->extends('layout', ['title' => 'Etudiants']);
     }
 
     function getColumnsProperty()
@@ -82,7 +87,7 @@ class StudentComponent extends Component
     public function save()
     {
         $this->validate();
-        //try {
+        try {
             $this->data = array_merge($this->data, ['admin_id' => $this->admin_id]);
 
             $user = User::createStudent($this->data, 'student');
@@ -93,13 +98,13 @@ class StudentComponent extends Component
                 'message' => "Enregistrement effectué avec succès.",
                 'color' => 'success'
             ]);
-        /* } catch (\Throwable $e) {
+        } catch (\Throwable $e) {
             Log::error($e->getMessage());
             $this->dispatchBrowserEvent('hideAddStudentModal', [
                 'message' => "Une erreur s'est produite.",
                 'color' => 'danger'
             ]);
-        } */
+        }
     }
 
     public function edit($id)

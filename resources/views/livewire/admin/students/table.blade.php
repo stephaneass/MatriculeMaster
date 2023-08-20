@@ -14,11 +14,26 @@
                         <h4 class="card-title mb-0 flex-grow-1">{{$title}}</h4>
                     </div>
                     <div class="row ">
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <div class="search-box">
-                                <input wire:model='search' type="text" class="form-control" id="search" placeholder="Rechercher en fonction du libel...">
+                                <input wire:model='search' type="text" class="form-control" id="search" placeholder="Search by label...">
                                 <i class="ri-search-line search-icon"></i>
                             </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <select wire:model="gender" class="form-select" aria-label="Default select example">
+                                <option value="">Choississez un genre</option>
+                                <option value="M">Masculin</option>
+                                <option value="F">Féminin</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <select wire:model="cycle_id" class="form-select mb-3" aria-label="Default select example">
+                                <option value="">Choississez un cycle</option>
+                                @foreach ($cycles as $key => $cycle)
+                                    <option value="{{$key}}">{{$cycle}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <!--end col-->
                         <div class="col-sm-auto ms-auto mt-3 mt-md-0">
@@ -27,11 +42,11 @@
                                 <button type="button" id="list-view-button" class="btn btn-soft-info nav-link  btn-icon fs-14 filter-button"><i class="ri-list-unordered"></i></button> --}}
                                 {{-- <button type="button" id="dropdownMenuLink1" data-bs-toggle="dropdown" aria-expanded="false" class="btn btn-soft-info btn-icon fs-14"><i class="ri-more-2-fill"></i></button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
-                                    <li><button class="dropdown-item bg-info text-white" wire:click="all()" >Tous</button></li>
-                                    <li><button class="dropdown-item bg-primary text-white" wire:click="created()">Non à jour</button></li>
-                                    <li><button class="dropdown-item bg-warning text-white" wire:click="pending()">En attente</button></li>
-                                    <li><button class="dropdown-item bg-success text-white" wire:click="validated()">Validés</button></li>
+                                    <li><button class="dropdown-item" wire:click="allGender()" >Tous</button></li>
+                                    <li><button class="dropdown-item" wire:click="female()">Féminin</button></li>
+                                    <li><button class="dropdown-item" wire:click="male()">Masculin</button></li>
                                 </ul> --}}
+                                
                                 <button onclick="showStudentModal('create')" class="btn btn-primary addMembers-modal"><i class="ri-add-fill me-1 align-bottom"></i> Ajouter </button>
                             </div>
                         </div>

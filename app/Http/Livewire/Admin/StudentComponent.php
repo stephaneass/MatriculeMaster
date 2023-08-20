@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Http\Export\Student\DownloadPDF;
 use App\Models\Cycle;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
@@ -153,9 +155,12 @@ class StudentComponent extends Component
         }
     }
 
-    public function downloadPdf()
+    public function downloadPdf(Request $request)
     {
-        return (new DownloadPDF($this->search, $this->cycle_id, $this->gender))
+        $search = $request->search;
+        $cycle_id = $request->cycle_id;
+        $gender = $request->gender;
+        return (new DownloadPDF($search, $cycle_id, $gender))
                 ->downloadPdf("Liste de tous les etudiants");
     }
 }

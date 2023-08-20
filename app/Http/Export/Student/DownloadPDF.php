@@ -3,7 +3,7 @@ namespace App\Http\Export\Student;
 
 use App\Models\Cycle;
 use App\Models\User;
-use Barryvdh\DomPDF\Facade as PDF;
+use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 
 class DownloadPDF
 {
@@ -17,7 +17,7 @@ class DownloadPDF
     public function formatTitle()
     {
         if (!blank($this->gender)){
-            $gender_label = ($$this->gender == "F") ? " Feminins " : " Masculins ";
+            $gender_label = ($this->gender == "F") ? " Feminins " : " Masculins ";
             $this->title .= $gender_label;
         }
         if (!blank($this->cycle_id)){

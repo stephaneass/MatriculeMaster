@@ -15,3 +15,4 @@ par
 ```bash
 'binary'  => env('WKHTML_PDF_BINARY', 'votre path'),
 ```
+Pour plus d'information, consulter : **https://github.com/barryvdh/laravel-snappy**

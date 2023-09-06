@@ -124,10 +124,10 @@ class User extends Authenticatable
 
     public static function createStudent($data, $role) : self 
     {
-        $matricule = self::generateMatricule($data);
+        /* $matricule = self::generateMatricule($data);
 
-        $data = array_merge($data, ['matricule_number' => $matricule]);
-
+        $data = array_merge($data, ['matricule_number' => $matricule]); */
+        
         $user = self::create($data);
 
         $role = Role::whereName($role)->first();
@@ -157,6 +157,11 @@ class User extends Authenticatable
             $matricule = str_replace('{FN}', substr($data['first_name'], 0, 1), $matricule);
             $matricule = str_replace('{LN}', substr($data['last_name'], 0, 1), $matricule);
         }
+
+        $find = User::where('matricule_number', $matricule)->exists();
+
+        if ($find)
+            return false;
         
         return $matricule;
     }

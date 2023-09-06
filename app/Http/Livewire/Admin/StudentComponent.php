@@ -94,7 +94,16 @@ class StudentComponent extends Component
         try {
             $this->data = array_merge($this->data, ['admin_id' => $this->admin_id]);
 
-            $user = User::createStudent($this->data, 'student');
+            $matricule = User::generateMatricule($this->data);
+
+            if ($matricule == false) {
+                $this->addError('data.cycle_id', 'Ce numéro matricule existe déjà. Veuillez revoir le format du Cycle.');
+                return;
+            }
+
+            $data = array_merge($this->data, ['matricule_number' => $matricule]);
+
+            $user = User::createStudent($data, 'student');
 
             $this->data = [];
 

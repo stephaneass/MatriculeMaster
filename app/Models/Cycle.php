@@ -42,7 +42,7 @@ class Cycle extends Model
                     });
     }
 
-    public static function checkIfFormatIsValide($format, $label) : bool
+    /* public static function checkIfFormatIsValide($format, $label) : bool
     {
         if (!str_contains($format, Cycle::$YEAR))
             return false;
@@ -63,6 +63,41 @@ class Cycle extends Model
         if ($label == 'Licence' && !str_contains($format, Cycle::$LN))
             return false;
         
+        return true;
+    } */
+    
+    public static function checkIfFormatIsValide($format, $label) : bool
+    {
+        /* $find = false;
+        $keywords = [Cycle::$YEAR, Cycle::$MONTH, Cycle::$DAY, Cycle::$TC, Cycle::$CC];
+
+        //Check if contains at least one keyword
+        foreach ($keywords as $keyword) {
+            if (strpos($format, $keyword) !== false) {
+                $find = true;
+                break;
+            }
+        } 
+
+        if (!in_array($label, ['BTS', 'Licence']) && !$find) {
+            return false;
+        }*/
+        
+        if (!in_array($label, ['BTS', 'Licence'])) {
+            if (str_contains($format, Cycle::$FN) || str_contains($format, Cycle::$LN) || str_contains($format, Cycle::$G) )
+                return false;
+        }
+        
+        if ($label != 'BTS') {
+            if (str_contains($format, Cycle::$G))
+                return false;
+        }
+        
+        if ($label != 'Licence') {
+            if (str_contains($format, Cycle::$FN) && str_contains($format, Cycle::$LN) )
+                return false;
+        }
+
         return true;
     }
 }

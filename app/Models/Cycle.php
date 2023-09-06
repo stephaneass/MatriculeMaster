@@ -94,7 +94,7 @@ class Cycle extends Model
         }
         
         if ($label != 'Licence') {
-            if (str_contains($format, Cycle::$FN) && str_contains($format, Cycle::$LN) )
+            if (str_contains($format, Cycle::$FN) || str_contains($format, Cycle::$LN) )
                 return false;
         }
 

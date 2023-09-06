@@ -114,7 +114,7 @@ class CycleComponent extends Component
             if (!blank($this->model)) {
                 $result = Cycle::checkIfFormatIsValide($this->data['format'], $this->data['label']);
                 if (!$result) {
-                    $this->addError('data.format', "Veuillez renseigner un format valide.");
+                    $this->addError('data.format', "Veuillez renseigner un format valide. <br/> Le format peut contenir tout carctère et des valiables telles que : <br/> {YEAR}{MONTH}{DAY}{TC}{CC}<br/> Seul le BTS peut contenir {G} <br/> Seul la Licence peut contenir {FN} {LN}.");
                     return;
                 }
                 $this->model->label = $this->data['label'];
